@@ -5,7 +5,11 @@ import 'package:mapbox_test/api/repositories/iapi.repository.dart';
 import 'package:mapbox_test/utils/config.helper.dart';
 
 class ApiRepository implements IApiRepository {
+  static final ApiRepository instance =
+      ApiRepository._();
   final ApiProvider _provider = ApiProvider(baseURL: MAPBOX_BASE_URL);
+
+  ApiRepository._();
 
   @override
   Future performReverseGeocoding(

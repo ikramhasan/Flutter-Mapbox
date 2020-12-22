@@ -9,10 +9,10 @@ class ApiProvider {
 
   Future<dynamic> makeGetRequest(
     String endpoint, {
-    Map<String, dynamic> queryParams,
-    Map<String, dynamic> headers,
+    Map<String, String> queryParams,
+    Map<String, String> headers,
   }) async {
-    final http.Response response = await http.get(
+    final response = await http.get(
       Uri.https(baseURL, endpoint, queryParams),
       headers: headers,
     );
@@ -21,6 +21,6 @@ class ApiProvider {
       return null;
     }
 
-    return jsonDecode(response.body) as Map<String, dynamic>;
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 }

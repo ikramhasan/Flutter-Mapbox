@@ -10,9 +10,12 @@ class GeocodingModel {
   });
 
   GeocodingModel.fromJson(Map<String, dynamic> json) {
-    List<double> coordinates = json['query'] as List<double>;
+    List<dynamic> coordinates = json['query'];
     this.latitude = coordinates.first;
     this.longitude = coordinates.last;
     this.placeName = json['features'][0]['place_name'] as String;
   }
+
+  @override
+  String toString() => '$runtimeType($latitude, $longitude, $placeName)';
 }
