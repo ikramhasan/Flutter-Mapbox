@@ -33,20 +33,34 @@ class HomePage extends StatelessWidget {
             if (snapshot.hasData) {
               final token = snapshot.data['mapbox_api_token'] as String;
               return MapboxMap(
+                minMaxZoomPreference: MinMaxZoomPreference(2, 20),
                 accessToken: token,
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(45.45, 45.45),
+                  target: LatLng(33,31),
                 ),
                 onMapCreated: (controller) async {
                   final location = await getCurrentLocation();
-                  controller.animateCamera(
+                  final animateCameraResult = await controller.animateCamera(
                     CameraUpdate.newCameraPosition(
                       CameraPosition(
-                        zoom: 10.0,
+                        zoom: 14.0,
                         target: location,
                       ),
                     ),
                   );
+
+                  if (animateCameraResult) {
+                    controller.addCircle(
+                      CircleOptions(
+                        circleRadius: 10,
+                        circleStrokeColor: '#420C09',
+                        circleStrokeWidth: 2.0,
+                        draggable: false,
+                        circleColor: '#D21404',
+                        geometry: location,
+                      ),
+                    );
+                  }
                 },
               );
             }
