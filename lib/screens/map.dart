@@ -55,8 +55,6 @@ class MapScreen extends StatelessWidget {
                   }
                 },
                 onMapClick: (Point<double> point, LatLng latlng) {
-                  print(latlng.latitude);
-                  print(latlng.longitude);
                   BlocProvider.of<GeocodingBloc>(context)
                     ..add(
                       RequestGeocodingEvent(
