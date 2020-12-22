@@ -1,0 +1,26 @@
+import 'package:mapbox_test/api/api.constants.dart';
+import 'package:mapbox_test/api/models/geocoding.model.dart';
+import 'package:mapbox_test/api/providers/api.provider.dart';
+import 'package:mapbox_test/api/repositories/iapi.repository.dart';
+import 'package:mapbox_test/utils/config.helper.dart';
+
+class ApiRepository implements IApiRepository {
+  final ApiProvider _provider = ApiProvider(baseURL: MAPBOX_BASE_URL);
+
+  @override
+  Future performReverseGeocoding(
+    double latitude,
+    double longitude,
+  ) async {
+    final apiToken = (await loadConfigFile())['mapbox_api_token'] as String;
+    final result = await _provider.makeGetRequest(
+      'geocoding/v5/mapbox.places/$longitude,$latitude.json',
+      queryParams: {
+        'types': 'region',
+        'access_token': apiToken,
+      },
+    );
+
+    return result != null ? GeocodingModel.fromJson(result) : GeocodingModel();
+  }
+}

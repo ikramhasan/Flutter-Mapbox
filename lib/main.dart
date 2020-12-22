@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:mapbox_test/keys/key.dart';
 import 'package:mapbox_test/utils/config.helper.dart';
 import 'package:mapbox_test/utils/location.helper.dart';
 
