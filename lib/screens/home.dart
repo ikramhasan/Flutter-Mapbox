@@ -4,6 +4,7 @@ import 'package:mapbox_test/screens/map.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final List<String> items = [
       'Dark',
       'Light',
@@ -44,7 +45,13 @@ class HomeScreen extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  crossAxisCount: 2,
+                  crossAxisCount: (screenWidth > 1400)
+                      ? 4
+                      : (screenWidth > 980)
+                          ? 3
+                          : (screenWidth > 650)
+                              ? 2
+                              : 2,
                 ),
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -76,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                                 MapScreen(mapStyle: mapStyles[2]),
                           ),
                         );
-                      }else if (index == 3) {
+                      } else if (index == 3) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -84,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                                 MapScreen(mapStyle: mapStyles[3]),
                           ),
                         );
-                      }else if (index == 4) {
+                      } else if (index == 4) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -92,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                                 MapScreen(mapStyle: mapStyles[4]),
                           ),
                         );
-                      } else if (index == 5) {   
+                      } else if (index == 5) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -116,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                                 MapScreen(mapStyle: mapStyles[7]),
                           ),
                         );
-                      } 
+                      }
                     },
                     child: Ink(
                       decoration: BoxDecoration(
