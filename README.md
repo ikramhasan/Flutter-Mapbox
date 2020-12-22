@@ -1,3 +1,3 @@
-# mapbox_test
+# Flutter Mapbox
 
-Testing mapbox api
+Display user location on a map using flutter and the mapbox api
