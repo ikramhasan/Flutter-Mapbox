@@ -4,6 +4,7 @@ import 'package:mapbox_test/blocs/geocoding.bloc.dart';
 import 'package:mapbox_test/screens/home.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     BlocProvider<GeocodingBloc>(
       create: (context) => GeocodingBloc(),

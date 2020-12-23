@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -16,6 +14,18 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _onCircleTapped(Circle circle) async {
+      final latlng = await getCurrentLocation();
+      BlocProvider.of<GeocodingBloc>(context)
+        ..add(
+          RequestGeocodingEvent(
+            latlng.latitude,
+            latlng.longitude,
+          ),
+        );
+      _showBottomModalSheet(context);
+    }
+
     return Scaffold(
       body: Center(
         child: FutureBuilder(
@@ -52,18 +62,20 @@ class MapScreen extends StatelessWidget {
                         geometry: location,
                       ),
                     );
+                    controller.onCircleTapped
+                        .add(_onCircleTapped);
                   }
                 },
-                onMapClick: (Point<double> point, LatLng latlng) {
-                  BlocProvider.of<GeocodingBloc>(context)
-                    ..add(
-                      RequestGeocodingEvent(
-                        latlng.latitude,
-                        latlng.longitude,
-                      ),
-                    );
-                  _showBottomModalSheet(context);
-                },
+                // onMapClick: (Point<double> point, LatLng latlng) {
+                //  BlocProvider.of<GeocodingBloc>(context)
+                //    ..add(
+                //      RequestGeocodingEvent(
+                //        latlng.latitude,
+                //        latlng.longitude,
+                //      ),
+                //    );
+                //  _showBottomModalSheet(context);
+                // },
               );
             }
             return Center(
